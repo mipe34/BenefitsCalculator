@@ -8,7 +8,7 @@ namespace Api.Repositories.Interfaces
         /// Finds and employee by theirs id
         /// </summary>
         /// <param name="id">Id of employee</param>
-        /// <returns>Employee entity if found and null otherwise</returns>
+        /// <returns>Employee model if found and null otherwise</returns>
         Task<Employee?> FindEmployee(int id);
 
         /// <summary>

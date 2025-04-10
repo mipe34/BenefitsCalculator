@@ -3,7 +3,7 @@
     public interface IMapper<TFrom, TTo>
     {
         /// <summary>
-        /// TODO
+        /// TODO doc
         /// </summary>
         /// <remarks>
         /// Custom mapper implementation used not to introduce dependencies on external libraries for this exercise.

@@ -61,4 +61,5 @@ void RegisterServices(IServiceCollection services)
 
     // typically the persistence layer objects will be request scope - setting it for mock too even if not necessary
     services.AddScoped<IEmployeesRepository, EmployeesRepositoryMock>();
+    services.AddScoped<IDependentsRepository, DependentsRepositoryMock>();
 }

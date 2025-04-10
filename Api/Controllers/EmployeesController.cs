@@ -20,6 +20,7 @@ public class EmployeesController : ControllerBase
         this.employeeMapper = employeeMapper;
     }
 
+    // TODO swager doc
     [SwaggerOperation(Summary = "Get employee by id")]
     [HttpGet("{id}")]
     public async Task<ActionResult<ApiResponse<GetEmployeeDto>>> Get(int id)
@@ -41,6 +42,7 @@ public class EmployeesController : ControllerBase
         return result;
     }
 
+    // TODO swager doc
     [SwaggerOperation(Summary = "Get all employees")]
     [HttpGet("")]
     public async Task<ActionResult<ApiResponse<List<GetEmployeeDto>>>> GetAll()
@@ -53,7 +55,6 @@ public class EmployeesController : ControllerBase
             Data = employees,
             Success = true
         };
-
         return result;
     }
 }

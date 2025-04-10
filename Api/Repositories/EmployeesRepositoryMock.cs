@@ -2,6 +2,9 @@
 using Api.Repositories.Interfaces;
 namespace Api.Repositories
 {
+    /// <summary>
+    /// The real implementation would suppose to read employees from some persistence layer (eg.database)
+    /// </summary>
     public class EmployeesRepositoryMock : IEmployeesRepository
     {
         private readonly List<Employee> employees = new ()

@@ -1,21 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using Api.Dtos.Dependent;
-using Api.Dtos.Employee;
-using Api.Models;
-using Xunit;
-
-namespace ApiTests.IntegrationTests;
-
-public class EmployeeIntegrationTests : IntegrationTest
+﻿using Api.Models;
+using Api.Repositories.Interfaces;
+namespace Api.Repositories
 {
-    [Fact]
-    public async Task WhenAskedForAllEmployees_ShouldReturnAllEmployees()
+    public class EmployeesRepositoryMock : IEmployeesRepository
     {
-        var response = await HttpClient.GetAsync("/api/v1/employees");
-        var employees = new List<GetEmployeeDto>
+        private readonly List<Employee> employees = new ()
         {
             new()
             {
@@ -32,7 +21,7 @@ public class EmployeeIntegrationTests : IntegrationTest
                 LastName = "Morant",
                 Salary = 92365.22m,
                 DateOfBirth = new DateTime(1999, 8, 10),
-                Dependents = new List<GetDependentDto>
+                Dependents = new List<Dependent>
                 {
                     new()
                     {
@@ -67,7 +56,7 @@ public class EmployeeIntegrationTests : IntegrationTest
                 LastName = "Jordan",
                 Salary = 143211.12m,
                 DateOfBirth = new DateTime(1963, 2, 17),
-                Dependents = new List<GetDependentDto>
+                Dependents = new List<Dependent>
                 {
                     new()
                     {
@@ -80,29 +69,15 @@ public class EmployeeIntegrationTests : IntegrationTest
                 }
             }
         };
-        await response.ShouldReturn(HttpStatusCode.OK, employees);
-    }
 
-    [Fact]
-    public async Task WhenAskedForAnEmployee_ShouldReturnCorrectEmployee()
-    {
-        var response = await HttpClient.GetAsync("/api/v1/employees/1");
-        var employee = new GetEmployeeDto
+        public async Task<Employee?> FindEmployee(int id)
         {
-            Id = 1,
-            FirstName = "LeBron",
-            LastName = "James",
-            Salary = 75420.99m,
-            DateOfBirth = new DateTime(1984, 12, 30)
-        };
-        await response.ShouldReturn(HttpStatusCode.OK, employee);
-    }
-    
-    [Fact]
-    public async Task WhenAskedForANonexistentEmployee_ShouldReturn404()
-    {
-        var response = await HttpClient.GetAsync($"/api/v1/employees/{int.MinValue}");
-        await response.ShouldReturn(HttpStatusCode.NotFound);
+            return await Task.FromResult(employees.FirstOrDefault(x => x.Id == id));
+        }
+
+        public async Task<IEnumerable<Employee>> GetAllEmployees()
+        {
+            return await Task.FromResult(employees);
+        }
     }
 }
-

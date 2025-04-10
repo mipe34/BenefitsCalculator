@@ -1,3 +1,10 @@
+using Api.Dtos.Dependent;
+using Api.Dtos.Employee;
+using Api.Mappers;
+using Api.Mappers.Interfaces;
+using Api.Models;
+using Api.Repositories;
+using Api.Repositories.Interfaces;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +32,8 @@ builder.Services.AddCors(options =>
         policy => { policy.WithOrigins("http://localhost:3000", "http://localhost"); });
 });
 
+RegisterServices(builder.Services);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,3 +52,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void RegisterServices(IServiceCollection services)
+{
+    services.AddSingleton<IMapper<Dependent, GetDependentDto>, DependentMapper>();
+    services.AddSingleton<IMapper<Employee, GetEmployeeDto>, EmployeeMapper>();
+
+    // typically the persistence layer objects will be request scope - setting it for mock too even if not necessary
+    services.AddScoped<IEmployeesRepository, EmployeesRepositoryMock>();
+}

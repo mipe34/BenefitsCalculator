@@ -1,8 +1,9 @@
-﻿using Api.Services.Interfaces;
+﻿using Api.Services.Deductions;
+using Api.Services.Interfaces;
 
-namespace Api.Services.Deductions
+namespace Api.Services
 {
-    public class DeductionCalculatorFactory
+    public class DeductionCalculatorFactory : IDeductionCalculatorFactory
     {
         public IEnumerable<IDeductionCalculator> GetDeductionCalculators(DateTime toDate)
         {

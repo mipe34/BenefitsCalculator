@@ -1,10 +1,14 @@
 using Api.Dtos.Dependent;
 using Api.Dtos.Employee;
+using Api.Dtos.Paycheck;
 using Api.Mappers;
 using Api.Mappers.Interfaces;
 using Api.Models;
 using Api.Repositories;
 using Api.Repositories.Interfaces;
+using Api.Services;
+using Api.Services.Deductions;
+using Api.Services.Interfaces;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,8 +62,15 @@ void RegisterServices(IServiceCollection services)
 {
     services.AddSingleton<IMapper<Dependent, GetDependentDto>, DependentMapper>();
     services.AddSingleton<IMapper<Employee, GetEmployeeDto>, EmployeeMapper>();
+    services.AddSingleton<IMapper<Deduction, GetDeductionDto>, DeductionMapper>();
+    services.AddSingleton<IMapper<Paycheck, GetPaycheckDto>, PaycheckMapper>();
 
     // typically the persistence layer objects will be request scope - setting it for mock too even if not necessary
     services.AddScoped<IEmployeesRepository, EmployeesRepositoryMock>();
     services.AddScoped<IDependentsRepository, DependentsRepositoryMock>();
+
+    services.AddScoped<IPaycheckService, PaycheckService>();
+
+    services.AddSingleton<IDeductionCalculatorFactory, DeductionCalculatorFactory>();
+    services.AddSingleton<IPaycheckCalculator, PaycheckCalculator>();
 }

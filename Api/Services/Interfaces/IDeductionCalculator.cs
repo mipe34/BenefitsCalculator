@@ -7,5 +7,7 @@ namespace Api.Services.Interfaces
         decimal CalculateCosts(Employee employee, decimal payPeriods);
 
         bool IsApplicable(Employee employee);
+
+        string Name { get; }
     }
 }

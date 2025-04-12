@@ -1,11 +1,11 @@
-﻿namespace Api.Models
+﻿namespace Api.Dtos.Paycheck
 {
-    public class Deduction
+    public class GetDeductionDto
     {
         public string Name { get; set; }
         public decimal Value { get; set; }
 
-        public Deduction(string name, decimal value)
+        public GetDeductionDto(string name, decimal value)
         {
             Name = name;
             Value = value;

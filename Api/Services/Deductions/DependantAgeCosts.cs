@@ -1,9 +1,10 @@
 ﻿using Api.Extensions;
 using Api.Models;
+using Api.Services.Interfaces;
 
 namespace Api.Services.Deductions
 {
-    public class DependantAgeCosts : DeductionsBase
+    public class DependantAgeCosts : IDeductionCalculator
     {
         private readonly DateTime toDate;
         private readonly decimal monthlyCosts;
@@ -16,17 +17,17 @@ namespace Api.Services.Deductions
             this.ageDiscriminator = ageDiscriminator;
         }
 
-        public override string Name => $"Over-{ageDiscriminator} Dependent Surcharge"; // TODO localize
+        public string Name => $"Over-{ageDiscriminator} Dependent Surcharge"; // TODO localize
 
-        public override decimal CalculateYearCosts(Employee employee)
+        public decimal CalculateYearCosts(Employee employee)
         {
-            var applyForMonthsCount = employee.Dependents.Sum(x => x.DateOfBirth.MonthsOfYearTurnedSelectedAge(toDate, ageDiscriminator));
-            return monthlyCosts * new Decimal(applyForMonthsCount);
+            var applyForPortionOfYear = employee.Dependents.Sum(x => x.DateOfBirth.PortionOfYearTurnedSelectedAge(toDate, ageDiscriminator));
+            return monthlyCosts * 12m * applyForPortionOfYear;
         }
 
-        public override bool IsApplicable(Employee employee)
+        public bool IsApplicable(Employee employee)
         {
-            return employee.Dependents.Any(x => x.DateOfBirth.MonthsOfYearTurnedSelectedAge(toDate, ageDiscriminator) > 0);
+            return employee.Dependents.Any(x => x.DateOfBirth.PortionOfYearTurnedSelectedAge(toDate, ageDiscriminator) > 0);
         }
 
 

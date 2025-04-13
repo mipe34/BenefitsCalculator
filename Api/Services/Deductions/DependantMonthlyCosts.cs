@@ -3,7 +3,7 @@ using Api.Services.Interfaces;
 
 namespace Api.Services.Deductions
 {
-    public class DependantMonthlyCosts : DeductionsBase
+    public class DependantMonthlyCosts : IDeductionCalculator
     {
         private readonly decimal monthlyCost;
 
@@ -12,16 +12,16 @@ namespace Api.Services.Deductions
             this.monthlyCost = monthlyCost;
         }
 
-        public override string Name => "Dependent Costs"; // TODO localize
+        public string Name => "Dependent Costs"; // TODO localize
 
-        public override decimal CalculateYearCosts(Employee employee)
+        public decimal CalculateYearCosts(Employee employee)
         {
             var dependentsCount = employee.Dependents.Count;
             var yearDependentsCost = dependentsCount * monthlyCost * 12;
             return yearDependentsCost;
         }
 
-        public override bool IsApplicable(Employee employee)
+        public bool IsApplicable(Employee employee)
         {
             return employee.Dependents.Any();
         }

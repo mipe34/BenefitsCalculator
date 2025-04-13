@@ -9,7 +9,9 @@ using Api.Repositories.Interfaces;
 using Api.Services;
 using Api.Services.Deductions;
 using Api.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,10 @@ builder.Services.AddSwaggerGen(c =>
         Title = "Employee Benefit Cost Calculation Api",
         Description = "Api to support employee benefit cost calculations"
     });
+
+    // produce swagger doc from xml comments
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
 var allowLocalhost = "allow localhost";

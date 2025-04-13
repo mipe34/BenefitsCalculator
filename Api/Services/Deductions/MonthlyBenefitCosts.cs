@@ -3,7 +3,7 @@ using Api.Services.Interfaces;
 
 namespace Api.Services.Deductions
 {
-    public class MonthlyBenefitCosts : DeductionsBase
+    public class MonthlyBenefitCosts : IDeductionCalculator
     {
         private readonly decimal YearCost;
         
@@ -12,14 +12,14 @@ namespace Api.Services.Deductions
             YearCost = monthlyCost * 12;
         }
 
-        public override string Name => "Base Benefit Costs"; // TODO localize
+        public string Name => "Base Benefit Costs"; // TODO localize
 
-        public override decimal CalculateYearCosts(Employee employee)
+        public decimal CalculateYearCosts(Employee employee)
         {
             return YearCost;
         }
 
-        public override bool IsApplicable(Employee employee)
+        public bool IsApplicable(Employee employee)
         {
             return true;
         }

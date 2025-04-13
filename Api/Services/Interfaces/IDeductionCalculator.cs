@@ -4,7 +4,7 @@ namespace Api.Services.Interfaces
 {
     public interface IDeductionCalculator
     {
-        decimal CalculateCosts(Employee employee, decimal payPeriods);
+        decimal CalculateYearCosts(Employee employee);
 
         bool IsApplicable(Employee employee);
 

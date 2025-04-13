@@ -6,6 +6,7 @@ using Api.Models;
 using Api.Repositories.Interfaces;
 using Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Api.Controllers
@@ -29,9 +30,16 @@ namespace Api.Controllers
             this.paycheckService = paycheckService;
         }
 
-        // TODO swager doc
-        [SwaggerOperation(Summary = "Get employee by id")]
+        /// <summary>
+        /// Get paycheck by employee id
+        /// </summary>
+        /// <param name="id">Id of employee</param>
+        /// <returns></returns>
+        /// <response code="200">Returns the paycheck</response>
+        /// <response code="400">If paycheck not found</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ApiResponse<GetPaycheckDto>>> Get(int id)
         {
             // for simplicity of this exercise use a static issue date

@@ -21,7 +21,7 @@ namespace Api.Services
             {
                 if (deductionCalculator.IsApplicable(employee))
                 {
-                    var costs = deductionCalculator.CalculateCosts(employee, payPeriods);
+                    var costs = deductionCalculator.CalculateYearCosts(employee) / payPeriods;
                     deductions.Add(new Deduction(deductionCalculator.Name, costs));
                 }
             }

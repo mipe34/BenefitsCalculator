@@ -3,11 +3,11 @@ using Api.Services.Interfaces;
 
 namespace Api.Services.Deductions
 {
-    public class DependantMonthlyCosts : IDeductionCalculator
+    public class DependentMonthlyCosts : IDeductionCalculator
     {
         private readonly decimal monthlyCost;
 
-        public DependantMonthlyCosts(decimal monthlyCost)
+        public DependentMonthlyCosts(decimal monthlyCost)
         {
             this.monthlyCost = monthlyCost;
         }

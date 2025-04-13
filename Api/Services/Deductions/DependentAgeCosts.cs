@@ -4,13 +4,13 @@ using Api.Services.Interfaces;
 
 namespace Api.Services.Deductions
 {
-    public class DependantAgeCosts : IDeductionCalculator
+    public class DependentAgeCosts : IDeductionCalculator
     {
         private readonly DateTime toDate;
         private readonly decimal monthlyCosts;
         private readonly int ageDiscriminator;
 
-        public DependantAgeCosts(DateTime toDate, decimal monthlyCosts, int ageDiscriminator)
+        public DependentAgeCosts(DateTime toDate, decimal monthlyCosts, int ageDiscriminator)
         {
             this.toDate = toDate;
             this.monthlyCosts = monthlyCosts;

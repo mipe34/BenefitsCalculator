@@ -11,9 +11,9 @@ namespace Api.Services
             {
                 // TODO read settings from configuration file or from other source (API/database)
                 new MonthlyBenefitCosts(1000),
-                new DependantMonthlyCosts(600),
+                new DependentMonthlyCosts(600),
                 new ProgressiveSalaryCosts(80000, 2),
-                new DependantAgeCosts(toDate, 200, 50)
+                new DependentAgeCosts(toDate, 200, 50)
             };
         }
     }
